@@ -15,14 +15,18 @@ from models import InvestigationRequest, InvestigationResponse, InvestigationSta
 from storage import InvestigationStore
 
 app = FastAPI(title="RootCause Backend")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://127.0.0.1:5500")
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+     CORSMiddleware,
+     allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        FRONTEND_URL,
+    ],
+     allow_credentials=True,
+     allow_methods=["*"],
+     allow_headers=["*"],
+ )
 store = InvestigationStore()
 
 
